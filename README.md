@@ -1,34 +1,46 @@
----
-title: "Clickable County HTML5 State Map"
-output: github_document
----
+Clickable County HTML5 State Map
+================
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-This is a small tool I created to generate an HTML5 state map with clickable counties.
+This is a small tool I created to generate an HTML5 state map with
+clickable counties.
 
 The following chunk loads the necessary libraries.
 
-```{r}
+``` r
 library(devtools)
+```
 
+    ## Loading required package: usethis
+
+``` r
 library(geosphere)
 library(urbnmapr)
 library(dplyr)
 ```
 
-Change the variables in the following chunk to customize the map for your state and urls. Use "@county" in the url to have the name of the appropriate county inserted.
+    ## 
+    ## Attaching package: 'dplyr'
 
-```{r}
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+Change the variables in the following chunk to customize the map for
+your state and urls. Use “@county” in the url to have the name of the
+appropriate county inserted.
+
+``` r
 my_state_name="West Virginia"
 href<-"https://extension.wvu.edu/@county"
 ```
 
 The following chunk generates the HTML.
 
-```{r}
+``` r
 mytr<-function(x) {
   round((-abs(x))*1000)
 }
@@ -77,18 +89,18 @@ for (i in 1:length(counties)) {
 }
 ```
 
-The following chunk is an example of how you can add custom points to the map.
+The following chunk is an example of how you can add custom points to
+the map.
 
-```{r}
+``` r
 #code<-c(code,"<circle id=\"death_star\" fill=\"white\" stroke=\"#002855\" stroke-width=20 cx=\" @x \" cy=\" @y \" r=\"25\"><title>Knapp Hall</title></circle>"%>%gsub(x=.,pattern="@x",replacement=mytr(-79.957138))%>%gsub(x=.,pattern = "@y",replacement=mytr(39.632850)))
 #code<-c(code,"<a href=\"https://jacksonsmill.wvu.edu\"><circle id=\"j_m\" fill=\"white\" stroke=\"#002855\" stroke-width=20 cx=\" @x \" cy=\" @y \" r=\"25\"><title>Jackson's Mill</title></circle></a>"%>%gsub(x=.,pattern="@x",replacement=mytr(-80.471051))%>%gsub(x=.,pattern = "@y",replacement=mytr(39.099658)))
 #<text id="death_star" fill="white" stroke="#002855" dominant-baseline="central" text-align="center" text-anchor="middle" font-size="75" stroke-width=0 x="-79957" y="-39633">&#9733<title>Knapp Hall</title></text>
-
 ```
 
 The last chunk exports your html map.
 
-```{r}
+``` r
 code<-c(code,"</g>","</svg>","</div>")
 code%>%write.table("example.html",row.names = FALSE,col.names = FALSE,quote = FALSE)
 ```
