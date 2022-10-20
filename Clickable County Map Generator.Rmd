@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This is a small tool I created to generate an HTML5 state map with clickable counties.
 
-The following chunk loads the necessary libraries.
+The following chunk loads the necessary libraries. Adding something.
 
 ```{r}
 library(devtools)
